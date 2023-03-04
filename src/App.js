@@ -1,6 +1,3 @@
-if (process.env.NODE_ENV !== "production") {
-  require("dotenv").config();
-}
 import logo from "./logo.svg";
 import "./main.css";
 
