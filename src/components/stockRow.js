@@ -15,33 +15,46 @@ class StockRow extends Component {
 
   changeStyle() {
     return {
-      color: this.dollar_change > 0 ? "#4caf50" : "#e53935",
+      color: this.state.dollar_change > 0 ? "#4caf50" : "#e53935",
       fontSize: "0.8rem",
       marginLeft: 5,
     };
   }
 
   applyData(data) {
+    const formattedPrice =
+      data.price == undefined ? null : data.price.toFixed(2);
+
     this.setState({
-      price: data.price.toFixed(2),
+      price: formattedPrice,
       date: data.date,
       time: data.time,
-    });
-    stock.getYesterdaysClose(this.props.ticker, data.date, (yesterday) => {
-      console.log(yesterday);
-      const dollar_change = (data.price - yesterday.price).toFixed(2);
-      const percent_change = (100 * (dollar_change / yesterday.price)).toFixed(
-        1
-      );
-      this.setState({
-        dollar_change: `$${dollar_change}`,
-        percent_change: ` (${percent_change}%)`,
-      });
     });
   }
 
   componentDidMount() {
     stock.latestPrice(this.props.ticker, this.applyData.bind(this));
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.lastTradingDate == null) {
+      stock.getYesterdaysClose(
+        this.props.ticker,
+        this.props.lastTradingDate,
+        (yesterday) => {
+          const dollar_change = (this.state.price - yesterday.price).toFixed(2);
+          const percent_change = (
+            100 *
+            (dollar_change / yesterday.price)
+          ).toFixed(1);
+
+          this.setState({
+            dollar_change: `$${dollar_change}`,
+            percent_change: ` (${percent_change}%)`,
+          });
+        }
+      );
+    }
   }
 
   render() {
