@@ -19,4 +19,14 @@ export const stock = {
     formattedData.time = stockData.label;
     return formattedData;
   },
+
+  getYesterdaysClose: (ticker, date, callback) => {
+    fetch(stock.yesterdaysCloseURL(ticker, date))
+      .then((response) => response.json())
+      .then((data) => callback(stock.formatPriceData(data)));
+  },
+
+  yesterdaysCloseURL: (ticker) => {
+    return `${iex.base_url}/HISTORICAL_PRICES/${ticker}?token=${iex.api_token}&from=2023-03-01&to=2023-03-02`;
+  },
 };

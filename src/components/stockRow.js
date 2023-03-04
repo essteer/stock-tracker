@@ -25,6 +25,12 @@ class StockRow extends Component {
       date: data.date,
       time: data.time,
     });
+    stock.getYesterdaysClose(this.props.ticker, data.date, (yesterday) => {
+      console.log(yesterday);
+      this.setState({
+        dollar_change: data.price - yesterday.price,
+      });
+    });
   }
 
   componentDidMount() {
@@ -34,7 +40,7 @@ class StockRow extends Component {
   render() {
     return (
       <li className="list-group-item">
-        <b>{this.props.ticker}</b> {this.state.price}
+        <b>{this.props.ticker}</b> ${this.state.price}
         <span className="change" style={changeStyle}>
           {this.state.dollar_change}
           {this.state.percent_change}
