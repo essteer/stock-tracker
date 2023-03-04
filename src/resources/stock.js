@@ -30,12 +30,12 @@ export const stock = {
   },
 
   getLastTradingDate: async () => {
-    const today = new Date().toISOString().split("T")[0];
+    // const today = new Date().toISOString().split("T")[0];
     const url = `${iex.base_url}/REF_DATA_DATES/holiday/last/?token=${iex.api_token}`;
     return fetch(url).then((res) => res.json());
   },
 
   yesterdaysCloseURL: (ticker, lastTradingDate) => {
-    return `${iex.base_url}/HISTORICAL_PRICES/${ticker}?token=${iex.api_token}&from=2023-02-27&to=${lastTradingDate}`;
+    return `${iex.base_url}/HISTORICAL_PRICES/${ticker}?token=${iex.api_token}&from=2023-03-01&to=${lastTradingDate}`;
   },
 };
