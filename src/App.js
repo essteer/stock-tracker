@@ -1,4 +1,4 @@
-import logo from "./logo.svg";
+import React from "react";
 import "./main.css";
 
 import StockRow from "./components/stockRow.js";
