@@ -11,7 +11,10 @@ function App() {
           <div className="card">
             <ul className="list-group list-group-flush">
               <StockRow ticker="AAPL" />
+              <StockRow ticker="AMZN" />
               <StockRow ticker="GOOG" />
+              <StockRow ticker="KO" />
+              <StockRow ticker="META" />
               <StockRow ticker="MSFT" />
               <StockRow ticker="TSLA" />
             </ul>
